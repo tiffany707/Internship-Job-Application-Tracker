@@ -23,3 +23,27 @@ model Users{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+enum Status{
+  Pending
+  Interviewing
+  Offer
+  Ghosted
+  Rejected
+  Accepted
+}
+
+model Application{
+  id                Int @id @default(autoincrement())
+  userId            Int
+  company           String
+  role              String
+  dueDate           DateTime?
+  applicationDate   DateTime @default(now())
+  jobStatus         Status @default(Pending)
+  location          String?
+  description       String?
+  notes             String?
+  jobLink           String?
+  salary            String?
+}
