@@ -12,6 +12,7 @@ export async function POST(req:Request){
 
     try{
         const data = await req.json();
+        console.log(data)
 
     const {company, role, jobStatus} = data
     const dueDate = data.dueDate
@@ -47,21 +48,21 @@ export async function POST(req:Request){
     
 }
 
-export async function GET(){
-    const session = await auth()
-        if(!session || !session.user){
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
-        const userId = session.user.id
-    try{
+// export async function GET(){
+//     const session = await auth()
+//         if(!session || !session.user){
+//             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+//         }
+//         const userId = session.user.id
+//     try{
 
-        const applications = await prisma.application.findMany({
-            where:{userId:Number(userId)}
-        })
-        return NextResponse.json(applications)
-    }
-    catch(e){
-        console.log(e)
-        return NextResponse.json({error:"Server Error"}, {status: 500})
-    }
-}
+//         const applications = await prisma.application.findMany({
+//             where:{userId:Number(userId)}
+//         })
+//         return NextResponse.json(applications)
+//     }
+//     catch(e){
+//         console.log(e)
+//         return NextResponse.json({error:"Server Error"}, {status: 500})
+//     }
+// }

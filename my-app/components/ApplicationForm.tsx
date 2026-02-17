@@ -6,6 +6,7 @@ import { signIn } from "next-auth/react"
 import Link from "next/link";
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { convertServerPatchToFullTree } from "next/dist/client/components/segment-cache/navigation";
 
 export default function ApplicationForm(){
   
@@ -23,12 +24,21 @@ export default function ApplicationForm(){
 
     async function preventSubmit(e:React.FormEvent){
         e.preventDefault();
-
-        const res = await fetch("api/applications",{
-            method: "POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({})
-        })
+        setIsLoading(true);
+        try{
+            const res = await fetch("api/applications",{
+                method: "POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({company, role, dueDate,applicationDate, location, description, status, notes, jobLink,salary})
+            })
+        }
+        catch(e){
+            console.log(e)
+        }
+        finally{
+            setIsLoading(false);
+        }
+        
     }
     return(
         <div>
