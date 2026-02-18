@@ -6,6 +6,9 @@ import { closestCorners, DndContext, DragEndEvent, DragOverEvent, pointerWithin 
 import { arrayMove, horizontalListSortingStrategy, SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import Columns from "./Columns";
 import { useState } from "react";
+import ApplicationForm  from "./ApplicationForm"
+import ApplicationEditor from "./ApplicationEditor"
+import { Button } from "./ui/button";
 
 
 type Status = "Pending" | "Interviewing" | "Offer" | "Ghosted" | "Rejected" | "Accepted"
@@ -35,6 +38,9 @@ export default function ApplicationBoard({data}:ApplicationProps){
     const {data:session, status} = useSession();
     const [app, setApp] = useState<Application[]>(data);
     const [columnStatus, setColumnStatus] = useState(statuses);
+    const [isOpen, setIsOpen] = useState(false)
+    const [editApp, setEditApp] = useState<Application | null>(null)
+    const [isNewFormOpen, setIsNewFormOpen] = useState(false)
 
 
     if(!session || ! session.user){
@@ -43,10 +49,13 @@ export default function ApplicationBoard({data}:ApplicationProps){
 
     
     async function handleDragEnd(event:DragEndEvent){
+       
         const {active, over} = event;
-        
 
-        if(!over || active.id === over.id) return
+        console.log(`${over?.id} and ${active?.id}`)
+
+        
+        if(!over) return
 
         //this is if we move the column over
         const overColumn = columnStatus.includes(over.id as Status)
@@ -62,7 +71,9 @@ export default function ApplicationBoard({data}:ApplicationProps){
             })
         }
 
+        //card over card
          if(!overColumn && activeId){
+            // console.log(`${over?.id} and ${active?.id}`)
             setApp((prev:Application[]) =>{
                 const activePos = prev.findIndex((i:Application) => i.id == active.id)
                 const overPos = prev.findIndex((i:Application)=> i.id == over.id)
@@ -79,8 +90,11 @@ export default function ApplicationBoard({data}:ApplicationProps){
 
         //Api to change card status
         const findApp = app.find(i => i.id == active.id)
-        if(activeId){
-            const res = await fetch(`/api/applications/${active.id}`,{
+        console.log(`${over?.id} and ${active?.id}`)
+        console.log("hi", findApp)
+        if(findApp){
+            console.log("CARD UPDATE")
+            const res = await fetch(`/api/applications/${active.id}/move`,{
                 method:"PATCH",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify({jobStatus:findApp?.jobStatus})
@@ -93,13 +107,16 @@ export default function ApplicationBoard({data}:ApplicationProps){
     async function handleDragOver(event:DragOverEvent){
         const {active, over} = event;
 
-        if (!over || active.id === over.id) return;
+        if (!over || active.id === over.id){
+            return;
+        } 
 
         const activeId = !columnStatus.includes(active.id as Status)
         const overColumn = columnStatus.includes(over.id as Status)
 
         //Card over Column
         if(overColumn && activeId){
+            // console.log(`${over?.id} and ${active?.id}`)
             setApp((prev:Application[])=>{
                 const activePos = prev.findIndex((i:Application) => i.id == active.id)
                 //for columns
@@ -128,22 +145,40 @@ export default function ApplicationBoard({data}:ApplicationProps){
         }
 
     }
+
+    function editForm(app:Application){
+        setEditApp(app);
+        setIsOpen(true);
+        console.log(app)
+    }
     
 
     return(
-        <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
-        <div className="flex gap-4 overflow-x-auto items-start">
-            <SortableContext items={columnStatus} strategy={horizontalListSortingStrategy}>
-            {columnStatus.map((item, index) =>{
-                const appArr = app.filter(((apps:Application) => (apps.jobStatus == item)))
-                const appId = appArr.map((items)=>items.id)
-                return(
-                    <Columns key={item} item={item} appArr={appArr} appId={appId}/>    
-                )
-                    
-            })}
-            </SortableContext>
+        //Application Form
+        <div className="mt-20">
+            <div className={`fixed top-0 right-0 h-full w-[400px] transition-transform ease-in-out bg-white z-50 overflow-y-auto ${isOpen?'translate-x-0':'translate-x-full'}`}>
+                <ApplicationEditor setIsOpen={setIsOpen} info={editApp} setApp={setApp} app={app}/>
+            </div>
+            <div className={`fixed top-0 right-0 h-full w-[400px] bg-white overflow-y-auto transition-transform ease-in-out ${isNewFormOpen?"translate-x-0":"translate-x-full"}`}>
+                <ApplicationForm setIsNewFormOpen={setIsNewFormOpen} setApp={setApp}/>
+            </div>
+            <div>
+                <Button onClick={()=>{setIsNewFormOpen(true)}}>Add New Application</Button>
+            </div>
+            <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
+            <div className="flex gap-4 overflow-x-auto items-start">
+                <SortableContext items={columnStatus} strategy={horizontalListSortingStrategy}>
+                {columnStatus.map((item, index) =>{
+                    const appArr = app.filter(((apps:Application) => (apps.jobStatus == item)))
+                    const appId = appArr.map((items)=>items.id)
+                    return(
+                        <Columns key={item} item={item} appArr={appArr} appId={appId} editForm={editForm} setApp={setApp}/>    
+                    )
+                        
+                })}
+                </SortableContext>
+            </div>
+            </DndContext>
         </div>
-        </DndContext>
     )
 }

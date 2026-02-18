@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react"
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { convertServerPatchToFullTree } from "next/dist/client/components/segment-cache/navigation";
 import { X } from "lucide-react"
@@ -29,11 +29,15 @@ interface Application{
 }
 
 interface Props{
-    setIsNewFormOpen: (arg0:boolean) => void
-    setApp:(arg0:(prev:Application[])=> Application[]) => void
+    info:Application | null
+    setIsOpen:(arg0:boolean)=>void
+    setApp:(arg0:(prev:Application[])=>Application[])=>void
+    app:Application[]
 }
 
-export default function ApplicationForm({setIsNewFormOpen, setApp}:Props){
+export default function ApplicationEditor({setIsOpen, info, setApp, app}:Props){
+
+    console.log("hi")
   
     const [company, setCompany] = useState("");
     const [role, setRole] = useState("");
@@ -41,34 +45,74 @@ export default function ApplicationForm({setIsNewFormOpen, setApp}:Props){
     const [applicationDate, setApplicationDate] = useState("");
     const [location, setLocation] = useState("");
     const [description, setDescription] = useState("");
-    const [status, setStatus] = useState("Pending");
+    const [jobStatus, setJobStatus] = useState("Pending");
     const [notes, setNotes] = useState("");
     const [jobLink, setJobLink] = useState("");
     const [salary, setSalary] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
+    const formatDateForInput = (dateValue: Date | string | null) => {
+    if (!dateValue) return "";
+    return new Date(dateValue).toISOString().split("T")[0];
+    }
+
+    useEffect(()=>{
+        console.log(info)
+        if(info){
+            setCompany(info.company || "")
+            setRole(info.role || "")
+            setDueDate(formatDateForInput(info.dueDate) )
+            setApplicationDate(formatDateForInput(info.applicationDate))
+            setLocation(info.location || "")
+            setDescription(info.description || "")
+            setJobStatus(info.jobStatus || "Pending")
+            setNotes(info.notes || "")
+            setJobLink(info.jobLink || "")
+            setSalary(info.salary || "")
+        }
+        
+    }, [info])
+
+
+
     async function preventSubmit(e:React.FormEvent){
         e.preventDefault();
         setIsLoading(true);
         try{
-            const res = await fetch("api/applications",{
-                method: "POST",
+            if(!info){
+                return 
+            }
+
+            const res = await fetch(`api/applications/${info.id}/edit`,{
+                method: "PATCH",
                 headers:{"Content-Type":"application/json"},
-                body:JSON.stringify({company, role, dueDate,applicationDate, location, description, status, notes, jobLink,salary})
+                body:JSON.stringify({company, role, dueDate,applicationDate, location, description, jobStatus, notes, jobLink,salary})
             })
 
             if(res.ok){
-                const data = await res.json()
+                const findIndex = app.findIndex(i => i.id == info.id)
                 setApp((prev:Application[])=>{
                     const copyApp = [...prev]
-                    copyApp.push(data) 
-                    return copyApp
-            })
+                    copyApp[findIndex] = {...copyApp[findIndex], 
+                        company: company, 
+                        role: role , 
+                        dueDate: dueDate ? new Date(dueDate) : null,
+                        applicationDate: applicationDate ? new Date(applicationDate) : new Date(), 
+                        location: location, 
+                        description: description, 
+                        jobStatus: jobStatus as Status, 
+                        notes: notes, 
+                        jobLink: jobLink,
+                        salary: salary
 
+                    }
+                    console.log(copyApp[findIndex])
+                    return copyApp
+                })
+            }
             if(!res.ok){
                 const error = await res.json()
-                throw new Error(error.message || "Form failed to Upload")
-            }
+                throw new Error(error.message || "Failed to Edit Application")
             }
             
         }
@@ -84,10 +128,11 @@ export default function ApplicationForm({setIsNewFormOpen, setApp}:Props){
         <div>
             <div className="flex flex-col">
                 <div className="ml-auto mt-5 mr-5">
-                    <Button onClick={()=>{setIsNewFormOpen(false)}} className="w-10"><X/></Button>
+                    
+                    <Button onClick={()=>{setIsOpen(false)}} className="w-10"><X/></Button>
                 </div>
                 <div>
-                    <h1 className="text-center font-bold mb-2 text-2xl">Job Application</h1>
+                    <h1 className="text-center font-bold mb-2 text-2xl">Job Editor</h1>
                 </div>
             </div>
             <form onSubmit={preventSubmit} className="p-20 gap-3 flex flex-col rounded-2xl shadow-2xl">
@@ -109,17 +154,17 @@ export default function ApplicationForm({setIsNewFormOpen, setApp}:Props){
                 </div>
                 <div>
                     <Label className="mb-1" htmlFor="jobStatus" >Job Status: </Label>
-                    <Select value={status} onValueChange={setStatus}>
+                    <Select value={jobStatus} onValueChange={setJobStatus}>
                         <SelectTrigger id="jobStatus" className="w-[180px]">
-                            <SelectValue placeholder="pending" />
+                            <SelectValue placeholder="Pending" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="pending">Pending</SelectItem>
-                            <SelectItem value="interviewing">Interviewing</SelectItem>
-                            <SelectItem value="offer">Offer</SelectItem>
-                            <SelectItem value="ghosted">Ghosted</SelectItem>
-                            <SelectItem value="rejected">Rejected</SelectItem>
-                            <SelectItem value="accepted">Accepted</SelectItem>
+                            <SelectItem value="Pending">Pending</SelectItem>
+                            <SelectItem value="Interviewing">Interviewing</SelectItem>
+                            <SelectItem value="Offer">Offer</SelectItem>
+                            <SelectItem value="Ghosted">Ghosted</SelectItem>
+                            <SelectItem value="Rejected">Rejected</SelectItem>
+                            <SelectItem value="Accepted">Accepted</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -144,7 +189,7 @@ export default function ApplicationForm({setIsNewFormOpen, setApp}:Props){
                     <Textarea id="notes" value={notes} onChange={(e)=>setNotes(e.target.value)} />
                 </div>
                 <div>
-                    <Button className="justify-center" disabled={isLoading}>{isLoading?"Adding Application...":"Add Application"}</Button>
+                    <Button className="justify-center" disabled={isLoading}>{isLoading?"Confirming Changes...":"Confirm Changes"}</Button>
                 </div>
             </form>
         

@@ -25,11 +25,11 @@ interface Props{
     item:string;
     appArr:Application[];
     appId:number[]
-
-
+    editForm:(app:Application)=>void;
+    setApp:(arg1:(prev:Application[]) => Application[]) => void
 }
 
-export default function Columns({item, appArr, appId}:Props){
+export default function Columns({item, appArr, appId, editForm, setApp}:Props){
    
     const {attributes, listeners, transition, transform, setNodeRef} = useSortable({id:item, data:{type:Columns}})
     const styles = {
@@ -49,7 +49,7 @@ export default function Columns({item, appArr, appId}:Props){
                 <div className="min-h-[350px] min-w-[300px]">
                 {appArr.map((apps:Application) =>{
                     return(
-                            <ApplicationCard key={apps.id} info={apps}/> 
+                            <ApplicationCard key={apps.id} info={apps} editForm={editForm} setApp={setApp}/> 
                     )
                 })}
                 </div>

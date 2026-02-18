@@ -1,4 +1,4 @@
-import ApplicationForm from "@/components/ApplicationForm";
+import ApplicationForm from "@/components/ApplicationEditor";
 import { prisma } from "@/lib/prisma";
 import getServerSession from "next-auth";
 import { auth } from "../api/[...nextauth]/route";
@@ -16,9 +16,9 @@ export default async function Dashboard(){
         console.log(applications)
     return(
         <div>
-            <div>
+            {/* <div>
                 <ApplicationForm/>
-            </div>
+            </div> */}
             <div>
                 <ApplicationBoard data={applications}/>
             </div>
