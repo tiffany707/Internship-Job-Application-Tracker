@@ -1,4 +1,5 @@
 "use client"
+import { FaGoogle } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,16 +24,20 @@ export default function LoginForm(){
     }
 
     return(
-        <form onSubmit={preventSubmit} className="p-20 gap-2 flex flex-col rounded-2xl shadow-2xl">
-            <p className="text-center font-bold mb-2 text-2xl">Welcome!</p>
-            <Label htmlFor="email">Email: </Label>
-            <Input id="email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
-            <Label htmlFor="password" >Password: </Label>
-            <Input id="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+        <div className="gap-2 p-20 flex flex-col rounded-2xl shadow-2xl">
+            <form onSubmit={preventSubmit} className="gap-2 flex flex-col">
+                <p className="text-center font-bold mb-2 text-2xl">Welcome!</p>
+                <Label htmlFor="email">Email: </Label>
+                <Input id="email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
+                <Label htmlFor="password" >Password: </Label>
+                <Input id="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
 
-            <Button>Log In</Button>
-            <Button ><Link href="/register">Register</Link></Button>
-            <Link className="hover:underline hover:text-blue-400 text-center" href="/">Forgot your Password?</Link>
-        </form>
+                <Button className="hover:cursor-pointer">Log In</Button>
+            </form>
+                <Link href="/register"><Button className="hover:cursor-pointer" >Register</Button></Link>
+                <Link className="hover:underline hover:text-blue-400 text-center" href="/passwordreset">Forgot your Password?</Link>
+                <p className="text-gray-400 text-center"> -------or------- </p>
+                <Button className="hover:cursor-pointer" onClick={()=>{signIn("google", {redirectTo:"/"})}}><FaGoogle/>Sign in with Google</Button>
+        </div>
     )
 }

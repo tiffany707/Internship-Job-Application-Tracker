@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react"
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import router from "next/router";
 import { useState } from "react";
 
 
@@ -19,6 +20,7 @@ export default function RegistrationForm(){
 
 
     async function preventSubmit(e:React.FormEvent){
+
         e.preventDefault();
         setIsLoading(true);
         try{
@@ -35,8 +37,7 @@ export default function RegistrationForm(){
                 alert(data.error || "Error")
                 return;
             }
-            redirect("/login")
-            console.log("Registered!")
+            router.push("/login")
         }   
         catch(e){
             console.log(e)
@@ -44,6 +45,7 @@ export default function RegistrationForm(){
         finally{
             setIsLoading(false);
         }
+        
     }
 
     return(
@@ -54,9 +56,9 @@ export default function RegistrationForm(){
                     <Label htmlFor="email">Email: </Label>
                     <Input id="email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
                     <Label htmlFor="password" >Password: </Label>
-                    <Input id="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+                    <Input minLength={6} id="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
                     <Label htmlFor="password2">Confirm Password: </Label>
-                    <Input id="password2" type="password" value={password2} onChange={(e)=>setPassword2(e.target.value)} />
+                    <Input minLength={6} id="password2" type="password" value={password2} onChange={(e)=>setPassword2(e.target.value)} />
 
                     <Button disabled={isLoading}>{isLoading?"Registering...":"Register"}</Button>
                     <Link className="hover:underline hover:text-blue-400 text-center" href="/login">Go back to Login</Link>

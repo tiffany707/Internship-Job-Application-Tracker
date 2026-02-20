@@ -60,15 +60,15 @@ export default function ApplicationCard({info, editForm, setApp}: Props){
     return(
         <div>
             
-            <div ref={setNodeRef} {...attributes} {...listeners} style={style} className="flex justify-between items-center p-4 m-1 bg-blue-300 rounded-2xl">
+            <div ref={setNodeRef} {...attributes} {...listeners} style={style} className="hover:cursor-grab active:cursor-grabbing flex justify-between items-center p-4 m-1 bg-blue-300 rounded-2xl">
                 <div>
                     <h1 className="text-md font-semibold">{info.company}</h1>
                     <h2>{info.role}</h2>
                 </div>
                 
                 <div className="">
-                    <Button className="mr-2" onPointerDown={(e)=>{e.stopPropagation()}} onClick={()=>{deleteCard()}}><Trash2/></Button>
-                    <Button onPointerDown={(e)=>{e.stopPropagation();} } onClick={(e)=>{editForm(info)}}><Pencil/></Button>
+                    <Button className="mr-2 hover:cursor-pointer" onPointerDown={(e)=>{e.stopPropagation()}} onClick={()=>{deleteCard()}}><Trash2/></Button>
+                    <Button className="mr-2 hover:cursor-pointer" onPointerDown={(e)=>{e.stopPropagation();} } onClick={(e)=>{editForm(info)}}><Pencil/></Button>
                 </div>
             </div>
         </div>

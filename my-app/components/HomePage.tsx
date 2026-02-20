@@ -14,8 +14,8 @@ export default function Homepage(){
             <div className="flex flex-col p-20 rounded-2xl gap-3">
                 <p className="font-semibold text-xl">Hello! Log in or Register to check Job Postings and check you Dashboard!</p>
                 <div className="flex flex-col items-end gap-2">
-                    <Button className="w-40"><Link href="/login">Go to Login {">"}</Link></Button>
-                    <Button className="w-40"><Link href="/register">Register {">"}</Link></Button>
+                    <Link href="/login"><Button className="w-40 hover:cursor-pointer">Go to Login {">"}</Button></Link>
+                    <Link href="/register"><Button className="w-40 hover:cursor-pointer">Register {">"}</Button></Link>
                 </div>
             </div>
         )

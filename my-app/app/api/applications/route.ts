@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation"
-import { auth } from "../[...nextauth]/route"
+import { auth } from "../auth/[...nextauth]/route"
 import { prisma } from "@/lib/prisma"
 import { NextResponse } from "next/server"
 
