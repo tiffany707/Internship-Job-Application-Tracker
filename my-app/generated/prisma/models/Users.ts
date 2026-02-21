@@ -62,6 +62,7 @@ export type UsersCountAggregateOutputType = {
   role: number
   createdAt: number
   updatedAt: number
+  jobOrder: number
   _all: number
 }
 
@@ -102,6 +103,7 @@ export type UsersCountAggregateInputType = {
   role?: true
   createdAt?: true
   updatedAt?: true
+  jobOrder?: true
   _all?: true
 }
 
@@ -199,6 +201,7 @@ export type UsersGroupByOutputType = {
   role: string
   createdAt: Date
   updatedAt: Date
+  jobOrder: $Enums.Status[]
   _count: UsersCountAggregateOutputType | null
   _avg: UsersAvgAggregateOutputType | null
   _sum: UsersSumAggregateOutputType | null
@@ -232,6 +235,7 @@ export type UsersWhereInput = {
   role?: Prisma.StringFilter<"Users"> | string
   createdAt?: Prisma.DateTimeFilter<"Users"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Users"> | Date | string
+  jobOrder?: Prisma.EnumStatusNullableListFilter<"Users">
   token?: Prisma.PasswordResetTokenListRelationFilter
 }
 
@@ -243,6 +247,7 @@ export type UsersOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  jobOrder?: Prisma.SortOrder
   token?: Prisma.PasswordResetTokenOrderByRelationAggregateInput
 }
 
@@ -257,6 +262,7 @@ export type UsersWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.StringFilter<"Users"> | string
   createdAt?: Prisma.DateTimeFilter<"Users"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Users"> | Date | string
+  jobOrder?: Prisma.EnumStatusNullableListFilter<"Users">
   token?: Prisma.PasswordResetTokenListRelationFilter
 }, "id" | "email">
 
@@ -268,6 +274,7 @@ export type UsersOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  jobOrder?: Prisma.SortOrder
   _count?: Prisma.UsersCountOrderByAggregateInput
   _avg?: Prisma.UsersAvgOrderByAggregateInput
   _max?: Prisma.UsersMaxOrderByAggregateInput
@@ -286,6 +293,7 @@ export type UsersScalarWhereWithAggregatesInput = {
   role?: Prisma.StringWithAggregatesFilter<"Users"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Users"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Users"> | Date | string
+  jobOrder?: Prisma.EnumStatusNullableListFilter<"Users">
 }
 
 export type UsersCreateInput = {
@@ -295,6 +303,7 @@ export type UsersCreateInput = {
   role?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  jobOrder?: Prisma.UsersCreatejobOrderInput | $Enums.Status[]
   token?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
@@ -306,6 +315,7 @@ export type UsersUncheckedCreateInput = {
   role?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  jobOrder?: Prisma.UsersCreatejobOrderInput | $Enums.Status[]
   token?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -316,6 +326,7 @@ export type UsersUpdateInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobOrder?: Prisma.UsersUpdatejobOrderInput | $Enums.Status[]
   token?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
@@ -327,6 +338,7 @@ export type UsersUncheckedUpdateInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobOrder?: Prisma.UsersUpdatejobOrderInput | $Enums.Status[]
   token?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -338,6 +350,7 @@ export type UsersCreateManyInput = {
   role?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  jobOrder?: Prisma.UsersCreatejobOrderInput | $Enums.Status[]
 }
 
 export type UsersUpdateManyMutationInput = {
@@ -347,6 +360,7 @@ export type UsersUpdateManyMutationInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobOrder?: Prisma.UsersUpdatejobOrderInput | $Enums.Status[]
 }
 
 export type UsersUncheckedUpdateManyInput = {
@@ -357,6 +371,15 @@ export type UsersUncheckedUpdateManyInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobOrder?: Prisma.UsersUpdatejobOrderInput | $Enums.Status[]
+}
+
+export type EnumStatusNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.Status[] | Prisma.ListEnumStatusFieldRefInput<$PrismaModel> | null
+  has?: $Enums.Status | Prisma.EnumStatusFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.Status[] | Prisma.ListEnumStatusFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.Status[] | Prisma.ListEnumStatusFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type UsersCountOrderByAggregateInput = {
@@ -367,6 +390,7 @@ export type UsersCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  jobOrder?: Prisma.SortOrder
 }
 
 export type UsersAvgOrderByAggregateInput = {
@@ -402,6 +426,10 @@ export type UsersScalarRelationFilter = {
   isNot?: Prisma.UsersWhereInput
 }
 
+export type UsersCreatejobOrderInput = {
+  set: $Enums.Status[]
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -412,6 +440,11 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type UsersUpdatejobOrderInput = {
+  set?: $Enums.Status[]
+  push?: $Enums.Status | $Enums.Status[]
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -443,6 +476,7 @@ export type UsersCreateWithoutTokenInput = {
   role?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  jobOrder?: Prisma.UsersCreatejobOrderInput | $Enums.Status[]
 }
 
 export type UsersUncheckedCreateWithoutTokenInput = {
@@ -453,6 +487,7 @@ export type UsersUncheckedCreateWithoutTokenInput = {
   role?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  jobOrder?: Prisma.UsersCreatejobOrderInput | $Enums.Status[]
 }
 
 export type UsersCreateOrConnectWithoutTokenInput = {
@@ -478,6 +513,7 @@ export type UsersUpdateWithoutTokenInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobOrder?: Prisma.UsersUpdatejobOrderInput | $Enums.Status[]
 }
 
 export type UsersUncheckedUpdateWithoutTokenInput = {
@@ -488,6 +524,7 @@ export type UsersUncheckedUpdateWithoutTokenInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobOrder?: Prisma.UsersUpdatejobOrderInput | $Enums.Status[]
 }
 
 
@@ -529,6 +566,7 @@ export type UsersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  jobOrder?: boolean
   token?: boolean | Prisma.Users$tokenArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["users"]>
@@ -541,6 +579,7 @@ export type UsersSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  jobOrder?: boolean
 }, ExtArgs["result"]["users"]>
 
 export type UsersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -551,6 +590,7 @@ export type UsersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  jobOrder?: boolean
 }, ExtArgs["result"]["users"]>
 
 export type UsersSelectScalar = {
@@ -561,9 +601,10 @@ export type UsersSelectScalar = {
   role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  jobOrder?: boolean
 }
 
-export type UsersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "name" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["users"]>
+export type UsersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "name" | "role" | "createdAt" | "updatedAt" | "jobOrder", ExtArgs["result"]["users"]>
 export type UsersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   token?: boolean | Prisma.Users$tokenArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
@@ -584,6 +625,7 @@ export type $UsersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     role: string
     createdAt: Date
     updatedAt: Date
+    jobOrder: $Enums.Status[]
   }, ExtArgs["result"]["users"]>
   composites: {}
 }
@@ -1015,6 +1057,7 @@ export interface UsersFieldRefs {
   readonly role: Prisma.FieldRef<"Users", 'String'>
   readonly createdAt: Prisma.FieldRef<"Users", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Users", 'DateTime'>
+  readonly jobOrder: Prisma.FieldRef<"Users", 'Status[]'>
 }
     
 

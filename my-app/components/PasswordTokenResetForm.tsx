@@ -48,12 +48,12 @@ export default function PasswordTokenResetForm({ token }:{ token:string }){
         <form onSubmit={preventSubmit} className="p-20 gap-2 flex flex-col rounded-2xl shadow-2xl">
                     <p className="text-center font-bold mb-2 text-2xl">Reset your Password</p>
                     <Label htmlFor="password" >Password: </Label>
-                    <Input minLength={6} id="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+                    <Input required minLength={6} id="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
                     <Label htmlFor="password2">Confirm Password: </Label>
-                    <Input minLength={6} id="password2" type="password" value={password2} onChange={(e)=>setPassword2(e.target.value)} />
+                    <Input required minLength={6} id="password2" type="password" value={password2} onChange={(e)=>setPassword2(e.target.value)} />
 
                     <Button disabled={isLoading} className="hover:cursor-pointer">{isLoading?"Resetting Password..." : "Reset Password"}</Button>
-                    <Link className="hover:underline hover:text-blue-400 text-center" href="/login">Go back to Login</Link>
+                    <Link className="hover:underline hover:text-gray-400 text-center" href="/login">Go back to Login</Link>
         </form>
     )
 }

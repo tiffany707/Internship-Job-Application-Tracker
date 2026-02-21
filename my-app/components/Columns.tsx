@@ -22,7 +22,7 @@ interface Application{
 }
 
 interface Props{
-    item:string;
+    item:Status;
     appArr:Application[];
     appId:number[]
     editForm:(app:Application)=>void;
@@ -37,12 +37,24 @@ export default function Columns({item, appArr, appId, editForm, setApp}:Props){
         transform: CSS.Transform.toString(transform)
     }
 
+    const colorDict = {
+        Pending:"bg-gray-100",
+        Interviewing:"bg-green-100",
+        Offer:"bg-green-200",
+        Ghosted:"bg-red-300",
+        Rejected:"bg-red-400",
+        Accepted:"bg-green-300",
+    }
+
+    function colorPicker(item:Status){
+        return colorDict[item]
+    }
    
 
     return(
         <div ref={setNodeRef} style={styles} className="flex flex-col gap-3 p-4 rounded-2xl shadow-2xl min-h-[350px] min-w-[350px]">
-            <div className="p-4 bg-red-300 flex justify-between">
-                 <h1 className="font-semibold">{item}</h1>
+            <div className={`p-4 ${colorPicker(item)} flex justify-between rounded-2xl shadow-md`}>
+                 <h1 className="flex items-center text-lg font-semibold text-center">{item}</h1>
                  <LiaBrailleSolid {...attributes} {...listeners} className="hover:cursor-grab active:cursor-grabbing text-4xl focus:outline-none focus:ring-0"/>
             </div>
             

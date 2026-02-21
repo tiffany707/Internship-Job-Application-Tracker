@@ -24,20 +24,19 @@ export default function LoginForm(){
     }
 
     return(
-        <div className="gap-2 p-20 flex flex-col rounded-2xl shadow-2xl">
+        <div className="gap-2 p-20 flex flex-col rounded-2xl shadow-2xl w-full max-w-md">
             <form onSubmit={preventSubmit} className="gap-2 flex flex-col">
                 <p className="text-center font-bold mb-2 text-2xl">Welcome!</p>
                 <Label htmlFor="email">Email: </Label>
-                <Input id="email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
+                <Input required placeholder="Enter Email" id="email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
                 <Label htmlFor="password" >Password: </Label>
-                <Input id="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
-
-                <Button className="hover:cursor-pointer">Log In</Button>
+                <Input required placeholder="Enter Password" id="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+                <Link className="hover:underline text-sm hover:text-gray-400 text-end" href="/passwordreset">Forgot your Password?</Link>
+                <Button className="hover:cursor-pointer mt-2 w-50 mx-auto">Log In</Button>
             </form>
-                <Link href="/register"><Button className="hover:cursor-pointer" >Register</Button></Link>
-                <Link className="hover:underline hover:text-blue-400 text-center" href="/passwordreset">Forgot your Password?</Link>
-                <p className="text-gray-400 text-center"> -------or------- </p>
-                <Button className="hover:cursor-pointer" onClick={()=>{signIn("google", {redirectTo:"/"})}}><FaGoogle/>Sign in with Google</Button>
+                <p className="text-gray-400 text-center"> ------- Or sign in with ------- </p>
+                <Button className="hover:cursor-pointer w-50 text-center mx-auto" onClick={()=>{signIn("google", {redirectTo:"/"})}}><FaGoogle/>Sign in with Google</Button>
+                <Link className="text-center text-sm mt-5 hover:text-gray-400 hover:underline" href="/register">{`Don't have an account? Sign up`}</Link>
         </div>
     )
 }

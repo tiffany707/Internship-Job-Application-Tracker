@@ -49,18 +49,18 @@ export default function RegistrationForm(){
     }
 
     return(
-         <form onSubmit={preventSubmit} className="p-20 gap-2 flex flex-col rounded-2xl shadow-2xl">
-                    <p className="text-center font-bold mb-2 text-2xl">Welcome!</p>
+         <form onSubmit={preventSubmit} className="gap-2 p-20 flex flex-col rounded-2xl shadow-2xl w-full max-w-md">
+                    <p className="text-center font-bold mb-2 text-2xl">Register</p>
                     <Label htmlFor="name">Name: </Label>
-                    <Input id="name" type="text" value={name} onChange={(e)=>setName(e.target.value)} />
+                    <Input placeholder="Enter Name" required id="name" type="text" value={name} onChange={(e)=>setName(e.target.value)} />
                     <Label htmlFor="email">Email: </Label>
-                    <Input id="email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
+                    <Input placeholder="Enter Email" required id="email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
                     <Label htmlFor="password" >Password: </Label>
-                    <Input minLength={6} id="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+                    <Input placeholder="Enter Password" required minLength={6} id="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
                     <Label htmlFor="password2">Confirm Password: </Label>
-                    <Input minLength={6} id="password2" type="password" value={password2} onChange={(e)=>setPassword2(e.target.value)} />
+                    <Input placeholder="Re-Enter Password" required minLength={6} id="password2" type="password" value={password2} onChange={(e)=>setPassword2(e.target.value)} />
 
-                    <Button disabled={isLoading}>{isLoading?"Registering...":"Register"}</Button>
+                    <Button className="mt-5 hover:cursor-pointer w-50 text-center mx-auto" disabled={isLoading}>{isLoading?"Registering...":"Register"}</Button>
                     <Link className="hover:underline hover:text-blue-400 text-center" href="/login">Go back to Login</Link>
         </form>
     )
