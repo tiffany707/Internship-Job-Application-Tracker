@@ -67,8 +67,8 @@ export default function ApplicationCard({info, editForm, setApp}: Props){
                 </div>
                 
                 <div className="flex gap-3">
-                    <Trash2 className="mr-2 hover:cursor-pointer" onPointerDown={(e)=>{e.stopPropagation()}} onClick={()=>{deleteCard()}}/>
-                    <Pencil className="mr-2 hover:cursor-pointer" onPointerDown={(e)=>{e.stopPropagation();} } onClick={(e)=>{editForm(info)}}/>
+                    <Trash2 className="mr-2 hover:cursor-pointer hover:text-red-400" onPointerDown={(e)=>{e.stopPropagation()}} onClick={()=>{deleteCard()}}/>
+                    <Pencil className="mr-2 hover:cursor-pointer hover:text-gray-400" onPointerDown={(e)=>{e.stopPropagation();} } onClick={(e)=>{editForm(info)}}/>
                 </div>
             </div>
         </div>

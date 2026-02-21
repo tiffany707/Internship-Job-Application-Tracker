@@ -207,7 +207,7 @@ export default function ApplicationBoard({data}:ApplicationProps){
             </div>
             <div className="p-4 flex w-full  justify-between">
                 <h1 className="font-bold text-3xl">Application Tracker</h1>
-                <Button className="" onClick={()=>{setIsNewFormOpen(true)}}>Add New Application</Button>
+                <Button className="hover:cursor-pointer" onClick={()=>{setIsNewFormOpen(true)}}>Add New Application</Button>
             </div>
             <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
             <div className="flex gap-4 overflow-x-auto items-start">
