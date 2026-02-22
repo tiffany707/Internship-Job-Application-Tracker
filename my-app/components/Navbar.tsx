@@ -17,6 +17,7 @@ export default function Navbar(){
                     <div className="flex flex-col gap-3 pt-10 ">
                         <Link className="hover:underline" href="/">Home</Link>
                         <Link className="hover:underline" href="/dashboard">Dashboard</Link>
+                        <Link className="hover:underline" href="/analytics">Analytics</Link>
                     </div>
                     <div>
                         {status === "authenticated"?(<Button className="hover:cursor-pointer" onClick={()=>{signOut({redirectTo:"/"})}}>Sign Out</Button>):(<Link href="/login"><Button className="hover:cursor-pointer">Log In</Button></Link>)}

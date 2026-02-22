@@ -2,13 +2,16 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { useSession } from "next-auth/react";
+import SkeletonHomepage from "./SkeletonHompage";
 
 
 
 export default function Homepage(){
     const {data:session, status} = useSession();
     if (status === "loading") {
-        return <div className="p-20 text-center">Loading your profile...</div>;
+        return(
+            <SkeletonHomepage/>
+        )
     }
     if(!session){
         return(

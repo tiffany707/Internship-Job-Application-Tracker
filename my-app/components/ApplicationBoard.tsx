@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import ApplicationForm  from "./ApplicationForm"
 import ApplicationEditor from "./ApplicationEditor"
 import { Button } from "./ui/button";
+import SkeletonApplicationBoard from "./SkeletonApplicationBoard";
 
 
 type Status = "Pending" | "Interviewing" | "Offer" | "Ghosted" | "Rejected" | "Accepted"
@@ -70,9 +71,7 @@ export default function ApplicationBoard({data}:ApplicationProps){
 
   if (isColumnsLoading || status === "loading"){
     return(
-        <div className="flex justify-center items-center h-screen">
-            Loading...
-        </div>
+        <SkeletonApplicationBoard />
     )
   }
 
