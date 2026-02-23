@@ -84,7 +84,7 @@ export default function ApplicationForm({setIsNewFormOpen, setApp}:Props){
         <div>
             <div className="flex flex-col">
                 <div className="ml-auto mt-5 mr-5">
-                    <Button onClick={()=>{setIsNewFormOpen(false)}} className="w-10"><X/></Button>
+                    <Button className="hover:cursor-pointer w-10" onClick={()=>{setIsNewFormOpen(false)}} ><X/></Button>
                 </div>
                 <div>
                     <h1 className="text-center font-bold mb-2 text-2xl">Job Application</h1>
@@ -144,7 +144,7 @@ export default function ApplicationForm({setIsNewFormOpen, setApp}:Props){
                     <Textarea id="notes" value={notes} onChange={(e)=>setNotes(e.target.value)} />
                 </div>
                 <div>
-                    <Button className="justify-center" disabled={isLoading}>{isLoading?"Adding Application...":"Add Application"}</Button>
+                    <Button className="flex hover:cursor-pointer mx-auto mt-5" disabled={isLoading}>{isLoading?"Adding Application...":"Add Application"}</Button>
                 </div>
             </form>
         

@@ -10,6 +10,10 @@ import ApplicationForm  from "./ApplicationForm"
 import ApplicationEditor from "./ApplicationEditor"
 import { Button } from "./ui/button";
 import SkeletonApplicationBoard from "./SkeletonApplicationBoard";
+import { CirclePlus, Search, SlidersHorizontal } from 'lucide-react';
+import { Input } from "./ui/input";
+import ApplicationFilterMenu from "./ApplicationFilterMenu";
+
 
 
 type Status = "Pending" | "Interviewing" | "Offer" | "Ghosted" | "Rejected" | "Accepted"
@@ -44,7 +48,11 @@ export default function ApplicationBoard({data}:ApplicationProps){
     const [editApp, setEditApp] = useState<Application | null>(null)
     const [isNewFormOpen, setIsNewFormOpen] = useState(false)
     const [isColumnsLoading, setIsColumnsLoading] = useState(true)
-    
+    const [searchVal, setSearchVal] = useState("")
+    const [passSearchVal, setPassSearchVal] = useState("")
+    const [filterCategory, setFilterCategory] = useState("none")
+    const [filterValue, setFilterValue] = useState("")
+
 
     useEffect(()=>{
         if ( status === "loading") return
@@ -204,18 +212,27 @@ export default function ApplicationBoard({data}:ApplicationProps){
             <div className={`fixed top-0 right-0 h-full w-[400px] bg-white overflow-y-auto transition-transform ease-in-out ${isNewFormOpen?"translate-x-0":"translate-x-full"}`}>
                 <ApplicationForm setIsNewFormOpen={setIsNewFormOpen} setApp={setApp}/>
             </div>
-            <div className="p-4 flex w-full  justify-between">
-                <h1 className="font-bold text-3xl">Application Tracker</h1>
-                <Button className="hover:cursor-pointer" onClick={()=>{setIsNewFormOpen(true)}}>Add New Application</Button>
+            <div className="p-4  flex w-full  justify-between">
+                <h1 className="font-bold hidden md:flex md:text-3xl">Application Tracker</h1>
+                <div className="hidden md:flex gap-5 items-center">
+                    <span className="flex items-center gap-2 mr-2"><Input className="ml-5 md:ml-0 w-50" placeholder="Search..." value={searchVal} onChange={(e)=>{setSearchVal(e.target.value)}}/> <Search className="w-7 h-7 hover:text-gray-300 hover:cursor-pointer" onClick={()=>{setPassSearchVal(searchVal)}}/></span>
+                    <ApplicationFilterMenu filterCategory={filterCategory} setFilterCategory={setFilterCategory} filterValue={filterValue} setFilterValue={setFilterValue}/>
+                    <Button className="hover:cursor-pointer" onClick={()=>{setIsNewFormOpen(true)}}>Add New Application</Button>
+                </div>
+                <div className="flex md:hidden gap-2 items-center">
+                    <span className="flex items-center gap-2 mr-2"><Input className="ml-5  w-40" placeholder="Search..." value={searchVal} onChange={(e)=>{setSearchVal(e.target.value)}}/> <Search className="w-6 h-6 hover:text-gray-300 hover:cursor-pointer" onClick={()=>{setPassSearchVal(searchVal)}}/></span>
+                    <ApplicationFilterMenu filterCategory={filterCategory} setFilterCategory={setFilterCategory} filterValue={filterValue} setFilterValue={setFilterValue}/>
+                    <Button className="hover:cursor-pointer" onClick={()=>{setIsNewFormOpen(true)}}><CirclePlus/></Button>
+                </div>
             </div>
             <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
-            <div className="flex gap-4 overflow-x-auto items-start">
+            <div className="flex gap-4 overflow-x-auto min-h-0 items-start">
                 <SortableContext items={columnStatus} strategy={horizontalListSortingStrategy}>
                 {columnStatus.map((item, index) =>{
                     const appArr = app.filter(((apps:Application) => (apps.jobStatus == item)))
                     const appId = appArr.map((items)=>items.id)
                     return(
-                        <Columns key={item} item={item} appArr={appArr} appId={appId} editForm={editForm} setApp={setApp}/>    
+                        <Columns key={item} item={item} appArr={appArr} appId={appId} editForm={editForm} setApp={setApp} filterCompany={passSearchVal} filterCategory={filterCategory} filterValue={filterValue}/>    
                     )
                         
                 })}

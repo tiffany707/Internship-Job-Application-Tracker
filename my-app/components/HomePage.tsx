@@ -8,6 +8,7 @@ import SkeletonHomepage from "./SkeletonHompage";
 
 export default function Homepage(){
     const {data:session, status} = useSession();
+    
     if (status === "loading") {
         return(
             <SkeletonHomepage/>
@@ -36,7 +37,7 @@ export default function Homepage(){
                 <p className="font-bold text-4xl">Welcome back! {name}</p>
             </div>
             <div className="z-30 text-end">
-                <Button className="w-50 h-10"><Link href="/dashboard">Go to your Dashboard {">"}</Link></Button>
+                <Button className="w-60 h-10"><Link href="/applicationtracker">Go to your Application Tracker {">"}</Link></Button>
             </div>
         </div>
     )

@@ -129,7 +129,7 @@ export default function ApplicationEditor({setIsOpen, info, setApp, app}:Props){
             <div className="flex flex-col">
                 <div className="ml-auto mt-5 mr-5">
                     
-                    <Button onClick={()=>{setIsOpen(false)}} className="w-10"><X/></Button>
+                    <Button className="hover:cursor-pointer w-10" onClick={()=>{setIsOpen(false)}}><X/></Button>
                 </div>
                 <div>
                     <h1 className="text-center font-bold mb-2 text-2xl">Job Editor</h1>
@@ -189,7 +189,7 @@ export default function ApplicationEditor({setIsOpen, info, setApp, app}:Props){
                     <Textarea id="notes" value={notes} onChange={(e)=>setNotes(e.target.value)} />
                 </div>
                 <div>
-                    <Button className="justify-center" disabled={isLoading}>{isLoading?"Confirming Changes...":"Confirm Changes"}</Button>
+                    <Button className="flex hover:cursor-pointer mx-auto mt-5" disabled={isLoading}>{isLoading?"Confirming Changes...":"Confirm Changes"}</Button>
                 </div>
             </form>
         

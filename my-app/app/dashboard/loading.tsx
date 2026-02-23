@@ -1,9 +1,7 @@
-import SkeletonApplicationBoard from "@/components/SkeletonApplicationBoard";
+import SkeletonAnalyticsPage from "@/components/SkeletonAnalyticsPage";
 
 export default function Loading(){
-        return(
-            <div>
-                <SkeletonApplicationBoard />
-            </div>
-        )
-    }
+    return(
+        <SkeletonAnalyticsPage/>
+    )
+}

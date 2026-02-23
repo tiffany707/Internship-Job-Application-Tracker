@@ -27,9 +27,12 @@ interface Props{
     appId:number[]
     editForm:(app:Application)=>void;
     setApp:(arg1:(prev:Application[]) => Application[]) => void
+    filterCompany:string
+     filterCategory: string
+     filterValue: string
 }
 
-export default function Columns({item, appArr, appId, editForm, setApp}:Props){
+export default function Columns({item, appArr, appId, editForm, setApp, filterCompany, filterCategory, filterValue}:Props){
    
     const {attributes, listeners, transition, transform, setNodeRef} = useSortable({id:item, data:{type:Columns}})
     const styles = {
@@ -42,8 +45,8 @@ export default function Columns({item, appArr, appId, editForm, setApp}:Props){
         Interviewing:"bg-green-100",
         Offer:"bg-green-200",
         Ghosted:"bg-red-300",
-        Rejected:"bg-red-400",
-        Accepted:"bg-green-300",
+        Rejected:"bg-[#f76f6f]",
+        Accepted:"bg-[#6eeba0]",
     }
 
     function colorPicker(item:Status){
@@ -60,7 +63,22 @@ export default function Columns({item, appArr, appId, editForm, setApp}:Props){
             
             <SortableContext items={appId} strategy={verticalListSortingStrategy}>
                 <div className="min-h-[350px] min-w-[300px]">
-                {appArr.map((apps:Application) =>{
+                {appArr.filter((i:Application)=>{
+                    if((i.company.toLowerCase().includes(filterCompany.toLowerCase()) || filterCompany == "") && (filterCategory == "none" || filterCategory=="")){
+                        return true
+                    }
+                    if(filterCategory == "applicationDate"){
+                        if((i.company.toLowerCase().includes(filterCompany.toLowerCase()) || filterCompany == "") && new Date(i.applicationDate).toISOString().split('T')[0] === filterValue){
+                            return true
+                        }
+                    }
+                    if(filterCategory == "role"){
+                        if((i.company.toLowerCase().includes(filterCompany.toLowerCase()) || filterCompany == "") && i.role.toLowerCase().includes(filterValue.toLowerCase())){
+                            return true
+                        }
+                    }
+                    return false 
+                }).map((apps:Application) =>{
                     return(
                             <ApplicationCard key={apps.id} info={apps} editForm={editForm} setApp={setApp}/> 
                     )
