@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import { auth } from "../api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 
 export default async function Dashboard(){
@@ -21,10 +22,12 @@ export default async function Dashboard(){
             
     return(
         <div>
+           
             <Navbar/>
             <div className="md:ml-[35px]">
                 <AnalyticsPage data={applications}/>
             </div>
+           
         </div>
     )
 }

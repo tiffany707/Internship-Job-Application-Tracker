@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { useSession } from "next-auth/react";
-import SkeletonHomepage from "./SkeletonHompage";
+import SkeletonHomepage from "./SkeletonHomepage";
 
 
 

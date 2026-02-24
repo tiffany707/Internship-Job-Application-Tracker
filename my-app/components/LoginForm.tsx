@@ -7,20 +7,31 @@ import { signIn } from "next-auth/react"
 import Link from "next/link";
 import { useState } from "react";
 
+import { useRouter }from "next/navigation";
+
 
 export default function LoginForm(){
-    
+    const router = useRouter()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLogin, setIsLogin] = useState(false)
 
 
     async function preventSubmit(e:React.FormEvent){
         e.preventDefault();
-        await signIn("credentials", {
+        const res = await signIn("credentials", {
         email: email,
         password: password,
+        redirect:false,
         callbackUrl: "/"
     })
+    if(res?.error){
+        setIsLogin(true)
+        console.log("isLogin set to true")
+    }
+    else{
+        router.push("/login")
+    }
     }
 
     return(
@@ -32,6 +43,7 @@ export default function LoginForm(){
                 <Label htmlFor="password" >Password: </Label>
                 <Input required placeholder="Enter Password" id="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
                 <Link className="hover:underline text-sm hover:text-gray-400 text-end" href="/passwordreset">Forgot your Password?</Link>
+                <div className={`${isLogin?"flex":"hidden"} text-sm py-1 text-red-500 justify-center font-semibold`}>Incorrect Username or Password</div>
                 <Button className="hover:cursor-pointer mt-2 w-50 mx-auto">Log In</Button>
             </form>
                 <p className="text-gray-400 text-center"> ------- Or sign in with ------- </p>
