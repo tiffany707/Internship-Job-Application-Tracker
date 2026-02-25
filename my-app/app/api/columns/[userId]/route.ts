@@ -23,7 +23,7 @@ export async function GET(req:Request, {params}:{params:Promise<{userId:string}>
 }
 
 
-export async function PATCH(req:Request, {params}:{params:{userId:number}}){
+export async function PATCH(req:Request, {params}:{params:{userId:string}}){
     try{
         const paramsData = await params
         const data = await req.json();
