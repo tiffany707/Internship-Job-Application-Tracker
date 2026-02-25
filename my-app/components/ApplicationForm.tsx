@@ -70,7 +70,17 @@ export default function ApplicationForm({setIsNewFormOpen, setApp}:Props){
                 throw new Error(error.message || "Form failed to Upload")
             }
             }
-            
+            setCompany("");
+            setRole("");
+            setDueDate("");
+            setApplicationDate("");
+            setLocation("");
+            setDescription("");
+            setStatus("Pending");
+            setNotes("");
+            setJobLink("");
+            setSalary("");
+            setIsNewFormOpen(false)
         }
         catch(e){
             console.log(e)
@@ -109,9 +119,9 @@ export default function ApplicationForm({setIsNewFormOpen, setApp}:Props){
                 </div>
                 <div>
                     <Label className="mb-1" htmlFor="jobStatus" >Job Status: </Label>
-                    <Select value={status} onValueChange={setStatus}>
+                    <Select value={status} onValueChange={(value) => setStatus(value)}>
                         <SelectTrigger id="jobStatus" className="w-[180px]">
-                            <SelectValue placeholder="pending" />
+                            <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="pending">Pending</SelectItem>

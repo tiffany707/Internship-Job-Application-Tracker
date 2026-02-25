@@ -222,7 +222,7 @@ export default function ApplicationBoard({data}:ApplicationProps){
                 <div className="flex md:hidden gap-2 items-center">
                     <span className="flex items-center gap-2 mr-2"><Input className="ml-5  w-40" placeholder="Search..." value={searchVal} onChange={(e)=>{setSearchVal(e.target.value)}}/> <Search className="w-6 h-6 hover:text-gray-300 hover:cursor-pointer" onClick={()=>{setPassSearchVal(searchVal)}}/></span>
                     <ApplicationFilterMenu filterCategory={filterCategory} setFilterCategory={setFilterCategory} filterValue={filterValue} setFilterValue={setFilterValue}/>
-                    <Button className="hover:cursor-pointer" onClick={()=>{setIsNewFormOpen(true)}}><CirclePlus/></Button>
+                    <Button className="hover:cursor-pointer" onClick={()=>{setIsNewFormOpen(true)}}><CirclePlus/> Add</Button>
                 </div>
             </div>
             <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>

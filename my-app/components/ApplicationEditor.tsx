@@ -107,6 +107,7 @@ export default function ApplicationEditor({setIsOpen, info, setApp, app}:Props){
 
                     }
                     console.log(copyApp[findIndex])
+                    setIsOpen(false)
                     return copyApp
                 })
             }
@@ -156,7 +157,7 @@ export default function ApplicationEditor({setIsOpen, info, setApp, app}:Props){
                     <Label className="mb-1" htmlFor="jobStatus" >Job Status: </Label>
                     <Select value={jobStatus} onValueChange={setJobStatus}>
                         <SelectTrigger id="jobStatus" className="w-[180px]">
-                            <SelectValue placeholder="Pending" />
+                            <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="Pending">Pending</SelectItem>
