@@ -5,6 +5,7 @@
 
 🔗 [Live Demo](https://internship-job-application-tracker-r0pi9zido.vercel.app/)
 
+
 ## Features
 - The Application Tracker uses a Kanban-style board using dnd-kit. So you can drag and drop cards to different columns and re-order the columns.
 - You can add, edit and delete applications (CRUD)
@@ -13,21 +14,22 @@
 - Responsive Design. Works on desktop and mobile
 
 
-![Video Demo of Dashboard](https://media.giphy.com/media/h05608YvQAvLfVLjNC/giphy.gif)
+<img src="https://media.giphy.com/media/h05608YvQAvLfVLjNC/giphy.gif" width="100%" />
 
 
 
 - Analytics Board created using Rechart. Shows you progress of you job search.
 
 
-![Video Demo of Tracker](https://media.giphy.com/media/zqH5yE8ETsnT9ETRJs/giphy.gif)
+<img src="https://media.giphy.com/media/zqH5yE8ETsnT9ETRJs/giphy.gif" width="100%" />
 
 
 - Authentication can be done with credentials or through google OAuth.
 - Password reset in case the user forgets their password. However, this feature is not live as can't pay for the automation. So please don't forget your password. Or, log in with google. 
 
 
-![Video Demo of password reset](https://media.giphy.com/media/FSozUwjdebIFvFJUTW/giphy.gif)
+<img src="https://media.giphy.com/media/FSozUwjdebIFvFJUTW/giphy.gif" width="100%" />
+
 
 
 ## Setup
