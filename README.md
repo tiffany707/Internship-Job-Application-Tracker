@@ -7,7 +7,7 @@
 
 
 ## Features
-- The Application Tracker uses a Kanban-style board using dnd-kit. So you can drag and drop cards to different columns and re-order the columns.
+- The Application Tracker uses a Kanban-style board using dnd-kit. Letting you drag and drop cards to different columns and re-order the columns.
 - You can add, edit and delete applications (CRUD)
 - The tracker has searching and filtering capabilities. So you can look for and search for specific applications.
 - Loading Skeletons for smooth experience.
@@ -19,7 +19,7 @@
 
 
 
-- Analytics Board created using Rechart. Shows you progress of you job search.
+- Analytics Board created using Rechart. Shows your progress of you job search.
 
 
 <p align="center">
@@ -27,7 +27,7 @@
 </p>
 
 - Authentication can be done with credentials or through google OAuth.
-- Password reset in case the user forgets their password. However, this feature is not live as can't pay for the automation. So please don't forget your password. Or, log in with google. 
+- Password reset in case the user forgets their password.
 
 
 <p align="center">
