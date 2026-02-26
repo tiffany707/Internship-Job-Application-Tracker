@@ -27,10 +27,12 @@ export default function LoginForm(){
     })
     if(res?.error){
         setIsLogin(true)
+        setEmail("")
+        setPassword("")
         console.log("isLogin set to true")
     }
     else{
-        router.push("/login")
+        router.push("/")
     }
     }
 

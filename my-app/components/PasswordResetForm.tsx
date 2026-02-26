@@ -54,7 +54,7 @@ export default function PasswordResetForm(){
                             <h3 className="whitespace-pre-line text-center">{`A password reset has been sent to your email. 
                             If the email is connected to an account, 
                             you'll be able to reset your password.`} </h3>
-                            <Button className="mt-5 w-50 mx-auto" onClick={()=>{setSentLink(false)}}>Try again</Button>
+                            <Button className="hover:cursor-pointer mt-5 w-50 mx-auto" onClick={()=>{setSentLink(false)}}>Try again</Button>
                             <Link className="hover:underline hover:text-gray-400 text-center" href="/login">Go back to Login</Link>
                 </div>)
                 :
