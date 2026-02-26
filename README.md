@@ -13,23 +13,26 @@
 - Loading Skeletons for smooth experience.
 - Responsive Design. Works on desktop and mobile
 
-
+<p align="center">
 <img src="https://media.giphy.com/media/h05608YvQAvLfVLjNC/giphy.gif" width="60%" />
+</p>
 
 
 
 - Analytics Board created using Rechart. Shows you progress of you job search.
 
 
-<img src="https://media.giphy.com/media/zqH5yE8ETsnT9ETRJs/giphy.gif" width="80%" />
-
+<p align="center">
+<img src="https://media.giphy.com/media/zqH5yE8ETsnT9ETRJs/giphy.gif" width="60%" />
+</p>
 
 - Authentication can be done with credentials or through google OAuth.
 - Password reset in case the user forgets their password. However, this feature is not live as can't pay for the automation. So please don't forget your password. Or, log in with google. 
 
 
-<img src="https://media.giphy.com/media/FSozUwjdebIFvFJUTW/giphy.gif" width="70%" />
-
+<p align="center">
+<img src="https://media.giphy.com/media/FSozUwjdebIFvFJUTW/giphy.gif" width="60%" />
+</p>
 
 
 ## Setup
