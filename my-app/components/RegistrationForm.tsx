@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react"
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 
@@ -17,6 +17,7 @@ export default function RegistrationForm(){
     const [password2, setPassword2] = useState("");
     const [name, setName] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
 
     async function preventSubmit(e:React.FormEvent){
@@ -37,6 +38,7 @@ export default function RegistrationForm(){
                 alert(data.error || "Error")
                 return;
             }
+            console.log("Changing to login page...")
             router.push("/login")
         }   
         catch(e){

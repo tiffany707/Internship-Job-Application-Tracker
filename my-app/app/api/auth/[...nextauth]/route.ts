@@ -11,7 +11,8 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
     providers:[
         Google({
             clientId:GOOGLE_ID,
-            clientSecret:GOOGLE_SECRET
+            clientSecret:GOOGLE_SECRET,
+            
         }),
         Credentials({
             credentials:{
